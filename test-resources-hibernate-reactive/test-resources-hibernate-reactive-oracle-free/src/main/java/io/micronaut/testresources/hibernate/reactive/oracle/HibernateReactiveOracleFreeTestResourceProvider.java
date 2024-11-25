@@ -39,12 +39,12 @@ public class HibernateReactiveOracleFreeTestResourceProvider extends AbstractHib
 
     @Override
     protected String getDefaultImageName() {
-        return "gvenzl/oracle-free:slim-faststart";
+        return "container-registry.oracle.com/database/free:latest-lite";
     }
 
     @Override
     protected OracleContainer createContainer(DockerImageName imageName, Map<String, Object> requestedProperties, Map<String, Object> testResourcesConfig) {
-        return new OracleContainer(imageName);
+        return new OracleContainer(imageName.asCompatibleSubstituteFor("gvenzl/oracle-free"));
     }
 
 }
