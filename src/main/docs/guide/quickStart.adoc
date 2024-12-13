@@ -8,8 +8,8 @@ If you wanted to integrate it manually, for Gradle you can use the `micronaut-te
 [source,groovy,subs="verbatim,attributes"]
 ----
 plugins {
-    id 'io.micronaut.application' version '{micronautVersion}'
-    id 'io.micronaut.test-resources' version '{micronautVersion}'
+    id 'io.micronaut.test-resources' version '4.4.4' // version https://plugins.gradle.org/plugin/io.micronaut.test-resources
+    id 'io.micronaut.application' version '4.4.4' // get latest version from https://plugins.gradle.org/plugin/io.micronaut.application 
 }
 ----
 
