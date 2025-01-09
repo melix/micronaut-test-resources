@@ -51,7 +51,7 @@ micronaut {
         optimizeServiceLoading = false
         optimizeClassLoading = true
         convertYamlToJava = false
-        precomputeOperations = false
+        precomputeOperations = true
         deduceEnvironment = true
         // We have to set it to false because the generated
         // Java configuration is somehow wrong and generates
