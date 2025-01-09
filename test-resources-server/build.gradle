@@ -47,16 +47,16 @@ micronaut {
     version = libs.versions.micronaut.platform.get()
     aot {
         version = libs.versions.micronaut.aot.get()
-        cacheEnvironment= false
-        optimizeServiceLoading= false
-        optimizeClassLoading= false
-        convertYamlToJava= false
-        precomputeOperations= false
-        deduceEnvironment= false
+        cacheEnvironment = false
+        optimizeServiceLoading = false
+        optimizeClassLoading = false
+        convertYamlToJava = false
+        precomputeOperations = false
+        deduceEnvironment = true
         // We have to set it to false because the generated
         // Java configuration is somehow wrong and generates
         // duplicate log lines
-        replaceLogbackXml= false
+        replaceLogbackXml = false
         configFile.set(file("src/aot/aot.properties"))
     }
 }
