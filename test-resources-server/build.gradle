@@ -47,7 +47,7 @@ micronaut {
     version = libs.versions.micronaut.platform.get()
     aot {
         version = libs.versions.micronaut.aot.get()
-        cacheEnvironment = false
+        cacheEnvironment = true
         optimizeServiceLoading = false
         optimizeClassLoading = true
         convertYamlToJava = false
