@@ -81,8 +81,10 @@ public class ServerUtils {
     private static final String FLAT_JAR = "flat.jar";
 
     // See io.micronaut.testresources.testcontainers.DockerSupport.TIMEOUT
-    private static final String DOCKER_CHECK_TIMEOUT_SECONDS_ENV = "TEST_RESOURCES_DOCKER_CHECK_TIMEOUT_SECONDS";
-    private static final String DOCKER_CHECK_TIMEOUT_SECONDS_PROPERTY = "docker.check.timeout.seconds";
+    private static final String DOCKER_CHECK_TIMEOUT_SECONDS_ENV =
+        "TEST_RESOURCES_DOCKER_CHECK_TIMEOUT_SECONDS";
+    private static final String DOCKER_CHECK_TIMEOUT_SECONDS_PROPERTY =
+        "docker.check.timeout.seconds";
 
     /**
      * Writes the server settings in an output directory.
@@ -335,16 +337,24 @@ public class ServerUtils {
         waitForServerToBeAvailable(serverFactory, explicitPort, portFilePath);
     }
 
-    private static void waitForServerToBeAvailable(ServerFactory serverFactory, Integer explicitPort,
-                                  Path portFilePath) {
+    private static void waitForServerToBeAvailable(ServerFactory serverFactory,
+                                                   Integer explicitPort,
+                                                   Path portFilePath) {
         Integer port = explicitPort;
         if (explicitPort == null) {
-            while (!Files.exists(portFilePath)) {
+            int retries = 4;
+            long dur = STARTUP_TIME_WAIT_MS;
+            while (--retries > 0 && !Files.exists(portFilePath)) {
                 try {
-                    serverFactory.waitFor(Duration.of(STARTUP_TIME_WAIT_MS, ChronoUnit.MILLIS));
+                    serverFactory.waitFor(Duration.of(dur, ChronoUnit.MILLIS));
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
+                    break;
                 }
+                dur *= 2;
+            }
+            if (!Files.exists(portFilePath)) {
+                throw new IllegalStateException("Port file not created. Server probably failed to start.");
             }
             try {
                 port = Integer.parseInt(Files.readString(portFilePath));
