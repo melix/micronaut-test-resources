@@ -342,7 +342,7 @@ public class ServerUtils {
                                                    Path portFilePath) {
         Integer port = explicitPort;
         if (explicitPort == null) {
-            int retries = 4;
+            int retries = 12;
             long dur = STARTUP_TIME_WAIT_MS;
             while (--retries > 0 && !Files.exists(portFilePath)) {
                 try {
